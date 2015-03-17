@@ -29,7 +29,7 @@ module.exports = ->
     .execute("$('select#annualMileage').selectBox('value', '12000')")
     .call(callback)
 
-  @Then "I get the correct Lease summary", (callback) ->
+  @Then "I get the correct lease summary", (callback) ->
     @client
     .waitFor('#lease-payment-value')
     .getText('#lease-payment-value')
