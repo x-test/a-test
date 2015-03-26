@@ -65,7 +65,16 @@ module.exports = function () {
       // TODO replace polling with an authenticated subscription
       var poll = setInterval(function () {
 
+        console.log('Checking for email');
+
         ddp.call('getInboundEmails', [], function (e, emails) {
+
+          if (e) {
+            throw new Error(e);
+          }
+
+          console.log('Response was', emails);
+
           if (!e && emails && emails[0] && emails[0].subject === 'Audi Lead Mgmt Test Data') {
             ddp.call('removeInboundEmails');
             clearTimeout(stepTimeout);
@@ -82,4 +91,6 @@ module.exports = function () {
 
   });
 };
+
+
 
