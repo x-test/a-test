@@ -65,7 +65,7 @@ module.exports = function () {
       // TODO replace polling with an authenticated subscription
       var poll = setInterval(function () {
 
-        console.log('Checking for email');
+        console.error('Checking for email');
 
         ddp.call('getInboundEmails', [], function (e, emails) {
 
@@ -73,7 +73,7 @@ module.exports = function () {
             throw new Error(e);
           }
 
-          console.log('Response was', emails);
+          console.error('Response was', emails);
 
           if (!e && emails && emails[0] && emails[0].subject === 'Audi Lead Mgmt Test Data') {
             ddp.call('removeInboundEmails');
