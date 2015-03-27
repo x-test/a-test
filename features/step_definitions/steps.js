@@ -11,8 +11,14 @@ module.exports = function () {
 
   this.Given(/^a user visits the "([^"]*)" model landing page$/, function (model, callback) {
     this.client
-      .url("http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('-'))
-      .call(callback);
+      .url("http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('-'), function(e, r) {
+        if (e) {
+          callback.fail('Page not found');
+        } else {
+          console.log(r);
+          callback();
+        }
+      });
   });
 
   this.Given(/^they requests a quote$/, function (callback) {
