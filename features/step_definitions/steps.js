@@ -67,7 +67,7 @@ module.exports = function () {
 
         console.error('Checking for email');
 
-        ddp.call('getInboundEmails', [], function (e, emails) {
+        ddp.call('getInboundEmails', ['audi'], function (e, emails) {
 
           if (e) {
             console.error('error', e);
