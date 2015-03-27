@@ -9,24 +9,19 @@ module.exports = function () {
       .call(callback);
   });
 
-  this.Given(/^I visit "([^"]*)"$/, function (url, callback) {
+  this.Given(/^a user requests a quote for an "([^"]*)" from the model landing page/, function (model, callback) {
     this.client
-      .url(url)
+      .url("http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('_'))
+      .click('//*[contains(text(), "' + "Request a Quote" + '")]')
       .call(callback);
   });
 
-  this.Given(/^I click "([^"]*)"$/, function (elementText, callback) {
-    this.client
-      .click('//*[contains(text(), "' + elementText + '")]')
-      .call(callback);
-  });
-
-  this.When(/^I submit my details with the email "([^"]*)"$/, function (email, callback) {
+  this.When(/^they submit their details"$/, function (email, callback) {
     this.email = email;
     this.client
       .setValue('form#dealerRequest input#firstName', 'sendto')
       .setValue('form#dealerRequest input#lastName', 'all')
-      .setValue('form#dealerRequest input#email', email)
+      .setValue('form#dealerRequest input#email', 'audi@inbox.simian.io')
       .setValue('form#dealerRequest input#phone', '5555555555')
       .setValue('form#dealerRequest input#address1', '113 7th Avenue')
       .setValue('form#dealerRequest input#zip', '94118')
@@ -34,7 +29,7 @@ module.exports = function () {
       .call(callback);
   });
 
-  this.Then(/^I see the confirmation message$/, function (callback) {
+  this.Then(/^They see a confirmation message$/, function (callback) {
     var message = "Thank you for providing this information. Your local dealer will be contacting you shortly.";
     this.client
       .waitForExist('//*[contains(text(), "' + message + '")]', function (err, res) {
@@ -46,7 +41,7 @@ module.exports = function () {
       });
   });
 
-  this.Then(/^I should receive an email confirming my submission$/, function (callback) {
+  this.Then(/^I receive their details in my CRM system$/, function (callback) {
 
     var ddp = this.ddp;
 
