@@ -11,13 +11,14 @@ module.exports = function () {
 
   this.Given(/^a user visits the "([^"]*)" model landing page$/, function (model, callback) {
     this.client
-      .url("http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('-'), function(e, r) {
-        if (e) {
+      .url("http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('-'))
+      .isExisting('.404', function(err, isExisting) {
+        if (isExisting) {
           callback.fail('Page not found');
         } else {
-          callback.fail('Page not found' + JSON.stringify(e)+ JSON.stringify(r));
+          callback();
         }
-      });
+      })
   });
 
   this.Given(/^they requests a quote$/, function (callback) {
