@@ -77,7 +77,7 @@ module.exports = function () {
           console.error('Response was', emails);
 
           if (!e && emails && emails[0] && emails[0].subject === 'Audi Lead Mgmt Test Data') {
-            ddp.call('removeInboundEmails');
+            ddp.call('removeInboundEmails', ['audi']);
             clearTimeout(stepTimeout);
             clearInterval(poll);
             // TODO more inspections on the email here
