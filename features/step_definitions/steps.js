@@ -13,7 +13,7 @@ module.exports = function () {
     this.client
       .url("http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('-'))
       .element('.404', function(err, res) {
-          callback.fail('Page not found ' + res);
+          callback.fail('Page not found ' + JSON.stringify(err) + JSON.stringify(res));
       })
   });
 
