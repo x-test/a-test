@@ -70,6 +70,7 @@ module.exports = function () {
         ddp.call('getInboundEmails', [], function (e, emails) {
 
           if (e) {
+            console.error('error', e);
             throw new Error(e);
           }
 
