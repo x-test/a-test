@@ -17,8 +17,7 @@ module.exports = function () {
       .call(callback);
   });
 
-  this.When(/^they submit their details$/, function (email, callback) {
-    this.email = email;
+  this.When(/^they submit their details$/, function (callback) {
     this.client
       .setValue('form#dealerRequest input#firstName', 'sendto')
       .setValue('form#dealerRequest input#lastName', 'all')
