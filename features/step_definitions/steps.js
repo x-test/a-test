@@ -12,8 +12,7 @@ module.exports = function () {
   this.Given(/^a user requests a quote for an "([^"]*)" from the model landing page/, function (model, callback) {
     console.error('navigating to', "http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('_'));
     this.client
-      .url("http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('_'))
-      .pause(1000)
+      .url("http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('-'))
       .click('//*[contains(text(), "' + "Request a Quote" + '")]')
       .call(callback);
   });
