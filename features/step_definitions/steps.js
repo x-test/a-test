@@ -12,12 +12,8 @@ module.exports = function () {
   this.Given(/^a user visits the "([^"]*)" model landing page$/, function (model, callback) {
     this.client
       .url("http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('-'))
-      .isExisting('.404', function(err, isExisting) {
-        if (isExisting) {
-          callback.fail('Page not found');
-        } else {
-          callback();
-        }
+      .element('.404', function(err, res) {
+          callback.fail('Page not found ' + res);
       })
   });
 
