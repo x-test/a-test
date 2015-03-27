@@ -9,10 +9,14 @@ module.exports = function () {
       .call(callback);
   });
 
-  this.Given(/^a user requests a quote for an "([^"]*)" from the model landing page/, function (model, callback) {
-    console.error('navigating to', "http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('_'));
+  this.Given(/^a user visits the "([^"]*)" model landing page$/, function (model, callback) {
     this.client
       .url("http://www.audiusa.com/models/audi-" + model.toLocaleLowerCase().split(' ').join('-'))
+      .call(callback);
+  });
+
+  this.Given(/^they requests a quote$/, function (callback) {
+    this.client
       .click('//*[contains(text(), "' + "Request a Quote" + '")]')
       .call(callback);
   });
@@ -60,16 +64,12 @@ module.exports = function () {
       // TODO replace polling with an authenticated subscription
       var poll = setInterval(function () {
 
-        console.error('Checking for email');
-
         ddp.call('getInboundEmails', ['audi'], function (e, emails) {
 
           if (e) {
             console.error('error', e);
             throw new Error(e);
           }
-
-          console.error('Response was', emails);
 
           if (!e && emails && emails[0] && emails[0].subject === 'Audi Lead Mgmt Test Data') {
             ddp.call('removeInboundEmails', ['audi']);
