@@ -15,7 +15,7 @@ module.exports = function () {
         if (e) {
           callback.fail('Page not found');
         } else {
-          console.log(r);
+          console.error('***', r);
           callback();
         }
       });
