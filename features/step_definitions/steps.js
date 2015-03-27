@@ -15,7 +15,7 @@ module.exports = function () {
         if (e) {
           callback.fail('Page not found');
         } else {
-          callback.fail('Page not found' + JSON.stringify(r));
+          callback.fail('Page not found' + JSON.stringify(e)+ JSON.stringify(r));
         }
       });
   });
